@@ -106,3 +106,43 @@ Never commit `backend/.env` or any file containing a password. The `.gitignore` 
 - [x] No dynamic details route or Express/PHP comparison is added because neither is required.
 
 Before submitting, run the production build, commit and push the latest changes, and verify that the teacher can access the GitHub repository.
+
+
+
+## Submission 6 – Shared State with Zustand
+
+### State Management
+
+The application uses Zustand to manage shared state.
+
+The Zustand store is located in `src/store/entryStore.ts`.
+
+It contains:
+- `entries`: the shared list of learning entries.
+- `setEntries`: a function that updates the shared list.
+
+### Local State
+
+The EntryForm component uses React `useState` for its form fields.
+
+This is local state because the form values are only needed while the user fills in the form.
+
+### Shared State
+
+The Entries page reads the learning entries from the Zustand store.
+
+After fetching entries from the database, the application updates the shared Zustand state.
+
+### Persistent State
+
+MariaDB stores the learning entries permanently.
+
+The application uses:
+- GET `/api/entries` to retrieve entries.
+- POST `/api/entries` to save a new entry.
+
+After submitting a new entry, the application fetches the updated entries from the database and updates the Zustand store.
+
+When the browser is refreshed, the application retrieves the entries again from MariaDB.
+
+Zustand manages shared application state, while MariaDB provides persistent storage.
